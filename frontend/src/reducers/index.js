@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-function test(state, action) {
+function test(state = {}, action) {
   return state;
 }
 
