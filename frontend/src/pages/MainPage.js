@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Category from '../components/Category/Category';
+import PostLink from '../components/Post/PostLink';
 
 const MainPage = props => {
   console.log(props);
@@ -10,11 +11,11 @@ const MainPage = props => {
     <div className="container">
       <div className="categories">
         {isLoading ? 'Loading Categories...' :
-          categories.map(({ path, name }) => <Link to={`/category/${path}`} key={path}>{name}</Link>)}
+          categories.map(category => <Category  {...category}/>)}
       </div>
       <div className="posts">
         {isLoading ? 'Loading Posts...' :
-          posts.map(({ id, title }) => <Link to={`/posts/${id}`} key={id}>{title}</Link>)}
+          posts.map(post => <PostLink {...post} />)}
       </div>
     </div>
   )

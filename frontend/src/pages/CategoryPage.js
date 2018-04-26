@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PostLink from '../components/Post/PostLink';
 
 const CategoryPage = ({ posts, isLoading }) => {
   console.log(posts);
@@ -10,8 +10,7 @@ const CategoryPage = ({ posts, isLoading }) => {
         posts.length === 0
           ? 'No posts for this category'
           : posts
-            .map(({ id, title }) =>
-              <Link to={`/posts/${id}`} key={id}>{title}</Link>)}
+            .map(post =><PostLink {...post} />)}
     </div>
   );
 }
