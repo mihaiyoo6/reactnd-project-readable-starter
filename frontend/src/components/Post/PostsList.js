@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { fetchCategories } from '../../actions/categories';
-import Category from './Category';
+import { fetchPosts } from '../../actions/posts';
+import Post from './Post';
 
-class CategoryList extends Component {
+class PostList extends Component {
   componentDidMount() {
-    this.props.getCategories();
+    this.props.getPosts();
   }
   render() {
-    const { error, loading, categories } = this.props;
+    const { error, loading, posts } = this.props;
 
     if (error) {
       return <div>Error! {error.message}</div>;
@@ -21,9 +21,9 @@ class CategoryList extends Component {
 
     return (
       <div>
-        <h1>Categories</h1>
-        {categories.map(category =>
-          <Category key={category.path} {...category} />
+        <h1>Posts</h1>
+        {posts.map(post =>
+          <Post key={post.id} {...post} />
         )}
       </div>
     );
@@ -32,9 +32,9 @@ class CategoryList extends Component {
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories.items,
-    loading: state.categories.loading,
-    error: state.categories.error
+    posts: state.posts.items,
+    loading: state.posts.loading,
+    error: state.posts.error
   }
 };
 
@@ -42,7 +42,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getCategories: fetchCategories
+      getPosts: fetchPosts
     },
     dispatch
   );
@@ -50,5 +50,5 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CategoryList);
+)(PostList);
 

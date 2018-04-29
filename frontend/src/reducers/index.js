@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import categoryReducer from './categories';
+import postReducer from './posts';
 
 export default combineReducers({
-  category: categoryReducer
+  categories: categoryReducer,
+  posts: postReducer
 });
