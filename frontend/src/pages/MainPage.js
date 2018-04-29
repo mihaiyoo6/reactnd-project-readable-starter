@@ -3,7 +3,6 @@ import Category from '../components/Category/Category';
 import PostLink from '../components/Post/PostLink';
 
 const MainPage = props => {
-  console.log(props);
   const { isLoading,
     categories,
     posts } = props;
@@ -11,11 +10,11 @@ const MainPage = props => {
     <div className="container">
       <div className="categories">
         {isLoading ? 'Loading Categories...' :
-          categories.map(category => <Category  {...category}/>)}
+          categories.map(category => <Category key={category.path} {...category} />)}
       </div>
       <div className="posts">
         {isLoading ? 'Loading Posts...' :
-          posts.map(post => <PostLink {...post} />)}
+          posts.map(post => <PostLink key={post.id} {...post} />)}
       </div>
     </div>
   )
