@@ -5,7 +5,7 @@ const Category = ({ path, name }) => {
 
   return (
     <div className="category-wrap">
-      <Link to={`/category/${path}`}>{name}</Link>
+      <Link to={`/${path}`}>{name}</Link>
     </div>
   )
 }

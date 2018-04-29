@@ -18,10 +18,10 @@ export const fetchPostsFailure = error => ({
   payload: { error }
 });
 
-export function fetchPosts() {
+export function fetchPosts(category) {
   return dispatch => {
     dispatch(fetchPostsBegin());
-    return getPosts()
+    return getPosts(category)
       .then(posts => dispatch(fetchPostsSuccessful(posts)))
       .catch(error => dispatch(fetchPostsFailure(error)));
   }

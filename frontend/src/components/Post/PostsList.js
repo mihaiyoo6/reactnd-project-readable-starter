@@ -6,8 +6,15 @@ import Post from './Post';
 
 class PostList extends Component {
   componentDidMount() {
-    this.props.getPosts();
+    this.props.getPosts(this.props.category);
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.category !== this.props.category) {
+      this.props.getPosts(nextProps.category);
+    }
+  }
+
   render() {
     const { error, loading, posts } = this.props;
 
@@ -30,11 +37,13 @@ class PostList extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  console.log('state', state, 'ownProps', ownProps);
   return {
+    ...ownProps,
     posts: state.posts.items,
     loading: state.posts.loading,
-    error: state.posts.error
+    error: state.posts.error,
   }
 };
 
