@@ -24,7 +24,6 @@ export const getCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(checkStatus)
     .then(r => r.ok ? r.json() : [])
-    .catch(err => []);;
 
 export const getPosts = (category = '') => {
   const url = category === '' ?
@@ -34,7 +33,6 @@ export const getPosts = (category = '') => {
   return fetch(url, { headers })
     .then(checkStatus)
     .then(r => r.ok ? r.json() : [])
-    .catch(err => []);
 }
 
 export const getComments = (postId = '') => {
@@ -42,5 +40,4 @@ export const getComments = (postId = '') => {
   return fetch(url, { headers })
     .then(checkStatus)
     .then(r => r.ok ? r.json() : [])
-    .catch(err => []);
 }

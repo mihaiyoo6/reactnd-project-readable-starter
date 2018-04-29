@@ -1,9 +1,6 @@
 import { combineReducers } from 'redux';
-
-function test(state = {}, action) {
-  return state;
-}
+import categoryReducer from './categories';
 
 export default combineReducers({
-  test
+  category: categoryReducer
 });
