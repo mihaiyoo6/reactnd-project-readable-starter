@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { fetchComments } from '../../actions/comments';
+import { fetchComments, commentVote } from '../../actions/comments';
 import Comment from './Comment';
 
 class CommentsList extends Component {
@@ -9,7 +9,7 @@ class CommentsList extends Component {
     this.props.getComments(this.props.postId);
   }
   render() {
-    const { error, loading, comments } = this.props;
+    const { error, loading, comments, commentVote } = this.props;
 
     if (error) {
       return <div>Error! {error.message}</div>;
@@ -23,7 +23,7 @@ class CommentsList extends Component {
       <div>
         <h1>Comments</h1>
         {comments.map(comment =>
-          <Comment key={comment.id} {...comment} />
+          <Comment key={comment.id} {...comment} commentVote={commentVote} />
         )}
       </div>
     );
@@ -43,7 +43,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getComments: fetchComments
+      getComments: fetchComments,
+      commentVote
     },
     dispatch
   );

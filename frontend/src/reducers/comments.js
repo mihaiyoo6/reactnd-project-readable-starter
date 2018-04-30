@@ -1,7 +1,8 @@
 import {
   FETCH_COMMENTS_BEGIN,
   FETCH_COMMENTS_SUCCESS,
-  FETCH_COMMENTS_FAILURE
+  FETCH_COMMENTS_FAILURE,
+  COMMENTS_VOTE
 } from '../actions/comments';
 
 const initialState = {
@@ -12,7 +13,6 @@ const initialState = {
 
 
 export default function commentsReducer(state = initialState, action) {
-
   switch (action.type) {
     case FETCH_COMMENTS_BEGIN:
       return {
@@ -35,6 +35,11 @@ export default function commentsReducer(state = initialState, action) {
         error: action.payload.error,
         items: []
       }
+    case COMMENTS_VOTE:
+      return {
+        ...state,
+        items: state.items.map(item => item.id === action.comment.id ? action.comment : item)
+      };
 
     default:
       return state;

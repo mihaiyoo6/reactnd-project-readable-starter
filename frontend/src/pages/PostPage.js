@@ -13,7 +13,6 @@ class PostPage extends Component {
   }
   render() {
     const { postId } = this.props.match.params;
-    console.log('props', this.props);
     const { error, loading, post } = this.props;
 
     if (error) {
@@ -37,7 +36,6 @@ class PostPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('state', state);
   return {
     post: state.posts.item,
     loading: state.posts.loading,
