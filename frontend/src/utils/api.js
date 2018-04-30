@@ -35,6 +35,16 @@ export const getPosts = (category = '') => {
     .then(r => r.ok ? r.json() : [])
 }
 
+export const getPost = (postId = null) => {
+  if (!postId) {
+    throw Error('Post id is required');
+  }
+  const url = `${api}/posts/${postId}`;
+  return fetch(url, { headers })
+    .then(checkStatus)
+    .then(r => r.ok ? r.json() : [])
+}
+
 export const getComments = (postId = '') => {
   const url = `${api}/posts/${postId}/comments`;
   return fetch(url, { headers })

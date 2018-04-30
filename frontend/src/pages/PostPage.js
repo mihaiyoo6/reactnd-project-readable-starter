@@ -1,43 +1,55 @@
 import React, { Component } from 'react';
-import { getComments } from '../utils/api';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { fetchPostSingle } from '../actions/posts';
+import CommentsList from '../components/Comment/CommentsList';
+import Post from '../components/Post/Post';
+
 
 class PostPage extends Component {
-  state = {
-    isLoading: this.props.isLoading,
-    post: this.props.post,
-    isLoadingComments: true,
-    comments: [],
-  }
   componentDidMount() {
-    if (!this.state.post) {
-      return;
-    }
-    getComments(this.state.post.id).then(comments => this.setState({ comments, isLoadingComments: false }))
-  }
-  componentWillReceiveProps(nextProps) {
-    this.setState({ isLoading: nextProps.isLoading, post: nextProps.post });
-    getComments(nextProps.post.id).then(comments => this.setState({ comments, isLoadingComments: false }))
+    const { postId } = this.props.match.params;
+    this.props.getPost(postId);
   }
   render() {
-    const { post, isLoading, comments, isLoadingComments } = this.state;
-    console.log('this', this.state);
+    const { postId } = this.props.match.params;
+    console.log('props', this.props);
+    const { error, loading, post } = this.props;
+
+    if (error) {
+      return <div>Error! {error.message}</div>;
+    }
+
     return (
       <div>
         <div className="posts">
-          {isLoading ? 'Post is loading' :
-            !post ? 'Post not found' :
-              <div>{post.title}</div>
-          }
+          POST
+          {loading
+            ? <div>Loading...</div>
+            : <Post {...post} />}
         </div>
         <div className="comments">
-          {isLoadingComments ? 'Comments are loading' :
-            comments.length === 0 ? 'Comments are not found' :
-              comments.map(comment => <div key={comment.id}>{comment.body}</div>)
-          }
+          <CommentsList postId={postId} />
         </div>
       </div>
     );
   }
 }
 
-export default PostPage;
+const mapStateToProps = (state) => {
+  console.log('state', state);
+  return {
+    post: state.posts.item,
+    loading: state.posts.loading,
+    error: state.posts.error
+  }
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    getPost: fetchPostSingle
+  },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostPage);
