@@ -37,22 +37,18 @@ class PostList extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log('state', state, 'ownProps', ownProps);
-  return {
-    ...ownProps,
-    posts: state.posts.items,
-    loading: state.posts.loading,
-    error: state.posts.error,
-  }
-};
+const mapStateToProps = (state, ownProps) => ({
+  ...ownProps,
+  posts: state.posts.items,
+  loading: state.posts.loading,
+  error: state.posts.error
+});
 
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      getPosts: fetchPosts
-    },
+  bindActionCreators({
+    getPosts: fetchPosts
+  },
     dispatch
   );
 

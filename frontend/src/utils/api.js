@@ -26,7 +26,6 @@ export const getCategories = () =>
     .then(r => r.ok ? r.json() : [])
 
 export const getPosts = (category = '') => {
-  console.log('GET CATEGORY', category);
   const url = category === '' ?
     `${api}/posts` :
     `${api}/${category}/posts`;
