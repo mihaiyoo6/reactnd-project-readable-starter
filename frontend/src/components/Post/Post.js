@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const Post = ({ id, category, title, body, author, timestamp, voteScore, commentCount, postVote }) => {
   return (
@@ -9,7 +10,7 @@ const Post = ({ id, category, title, body, author, timestamp, voteScore, comment
       </Link>
       <p>{body}</p>
       <div>{author}</div>
-      <div>{timestamp}</div>
+      <div>{moment(timestamp).startOf('hour').fromNow()}</div>
       <div>Votes: {voteScore}</div>
       <div>
         <span onClick={() => postVote(id, 'upVote')}> UpVote + </span>

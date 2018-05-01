@@ -3,11 +3,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import {
   fetchPosts,
-  postVote
+  postVote,
+  postsSort
 } from '../../actions/posts';
 import Post from './Post';
 
 class PostList extends Component {
+  state = {
+    sort: {
+      by: 'timestamp',
+      order: ''
+    }
+  }
   componentDidMount() {
     this.props.getPosts(this.props.category);
   }
@@ -16,6 +23,12 @@ class PostList extends Component {
     if (nextProps.category !== this.props.category) {
       this.props.getPosts(nextProps.category);
     }
+  }
+  changeSort(by) {
+    this.setState({
+      sort: { by, order: this.state.sort.order === 'ASC' ? 'DESC' : 'ASC' }
+    });
+    this.props.postsSort(this.props.posts, by, this.state.sort.order);
   }
 
   render() {
@@ -32,6 +45,11 @@ class PostList extends Component {
     return (
       <div>
         <h1>Posts</h1>
+        <div>sort posts by:
+          <span onClick={() => this.changeSort('timestamp')}> time: {this.state.sort.by === 'timestamp' && this.state.sort.order} </span>
+          |
+          <span onClick={() => this.changeSort('voteScore')}> votes: {this.state.sort.by === 'voteScore' && this.state.sort.order} </span>
+        </div>
         {posts.map(post =>
           <Post key={post.id} {...post} postVote={this.props.postVote} />
         )}
@@ -51,7 +69,8 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
     getPosts: fetchPosts,
-    postVote
+    postVote,
+    postsSort
   },
     dispatch
   );

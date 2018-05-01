@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 const Comment = ({ id, body, author, timestamp, voteScore, commentVote }) => {
 
@@ -6,7 +7,7 @@ const Comment = ({ id, body, author, timestamp, voteScore, commentVote }) => {
     <div className="comment-wrap">
       <p>{body}</p>
       <div>{author}</div>
-      <div>{timestamp}</div>
+      <div>{moment(timestamp).startOf('hour').fromNow()}</div>
       <div>Votes: {voteScore}</div>
       <div>
         <span onClick={() => commentVote(id, 'upVote')}> UpVote + </span>

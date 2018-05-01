@@ -5,7 +5,8 @@ import {
   FETCH_POSTS_BEGIN_SINGLE,
   FETCH_POSTS_SUCCESS_SINGLE,
   FETCH_POSTS_FAILURE_SINGLE,
-  POSTS_VOTE
+  POSTS_VOTE,
+  POSTS_SORT
 } from '../actions/posts';
 
 const initialState = {
@@ -61,6 +62,12 @@ export default function postsReducer(state = initialState, action) {
         ...state,
         items: state.items.map(item => item.id === action.post.id ? action.post : item)
       }
+    case POSTS_SORT: {
+      return {
+        ...state,
+        items: state.items
+      }
+    }
 
     default:
       return state;

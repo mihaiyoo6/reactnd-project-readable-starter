@@ -11,6 +11,7 @@ export const FETCH_POSTS_BEGIN_SINGLE = 'FETCH_POSTS_BEGIN_SINGLE';
 export const FETCH_POSTS_SUCCESS_SINGLE = 'FETCH_POSTS_SUCCESS_SINGLE';
 export const FETCH_POSTS_FAILURE_SINGLE = 'FETCH_POSTS_FAILURE_SINGLE';
 export const POSTS_VOTE = 'POSTS_VOTE';
+export const POSTS_SORT = 'POSTS_SORT';
 
 export const fetchPostsBegin = () => ({
   type: FETCH_POSTS_BEGIN
@@ -68,5 +69,15 @@ export function postVote(postId, voteType) {
   return dispatch => {
     return postPostVote(postId, voteType)
       .then(post => dispatch(postVoteSuccessful(post)));
+  }
+}
+
+export function postsSort(list, by, order) {
+  return dispatch => {
+    let compare = (a, b) => a[by] > b[by];
+    if (order === 'ASC') {
+      compare = (a, b) => a[by] < b[by];
+    }
+    return list.sort(compare);
   }
 }
