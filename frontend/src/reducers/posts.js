@@ -4,7 +4,8 @@ import {
   FETCH_POSTS_FAILURE,
   FETCH_POSTS_BEGIN_SINGLE,
   FETCH_POSTS_SUCCESS_SINGLE,
-  FETCH_POSTS_FAILURE_SINGLE
+  FETCH_POSTS_FAILURE_SINGLE,
+  POSTS_VOTE
 } from '../actions/posts';
 
 const initialState = {
@@ -54,6 +55,11 @@ export default function postsReducer(state = initialState, action) {
         loading: false,
         error: action.payload.error,
         item: {}
+      }
+    case POSTS_VOTE:
+      return {
+        ...state,
+        items: state.items.map(item => item.id === action.post.id ? action.post : item)
       }
 
     default:

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { fetchPosts } from '../../actions/posts';
+import {
+  fetchPosts,
+  postVote
+} from '../../actions/posts';
 import Post from './Post';
 
 class PostList extends Component {
@@ -30,7 +33,7 @@ class PostList extends Component {
       <div>
         <h1>Posts</h1>
         {posts.map(post =>
-          <Post key={post.id} {...post} />
+          <Post key={post.id} {...post} postVote={this.props.postVote} />
         )}
       </div>
     );
@@ -47,7 +50,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    getPosts: fetchPosts
+    getPosts: fetchPosts,
+    postVote
   },
     dispatch
   );

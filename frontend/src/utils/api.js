@@ -46,6 +46,17 @@ export const getPost = (postId = null) => {
     .then(r => r.ok ? r.json() : [])
 }
 
+export const postPostVote = (postId, option) => {
+  const url = `${api}/posts/${postId}`;
+  return fetch(url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ option })
+  })
+    .then(checkStatus)
+    .then(r => r.ok ? r.json() : [])
+}
+
 export const getComments = (postId = '') => {
   const url = `${api}/posts/${postId}/comments`;
   return fetch(url, { headers })
@@ -64,7 +75,7 @@ export const postCommentVote = (commentId, option) => {
     .then(r => r.ok ? r.json() : [])
 }
 
-export const postCommentCreate = data =>{
+export const postCommentCreate = data => {
   const url = `${api}/comments`;
   return fetch(url, {
     method: 'POST',
@@ -72,5 +83,5 @@ export const postCommentCreate = data =>{
     body: JSON.stringify(data)
   })
     .then(checkStatus)
-    .then(r=>r.ok?r.json(): []);
+    .then(r => r.ok ? r.json() : []);
 }
