@@ -2,7 +2,8 @@ import {
   FETCH_COMMENTS_BEGIN,
   FETCH_COMMENTS_SUCCESS,
   FETCH_COMMENTS_FAILURE,
-  COMMENTS_VOTE
+  COMMENTS_VOTE,
+  COMMENTS_CREATE
 } from '../actions/comments';
 
 const initialState = {
@@ -41,6 +42,11 @@ export default function commentsReducer(state = initialState, action) {
         items: state.items.map(item => item.id === action.comment.id ? action.comment : item)
       };
 
+    case COMMENTS_CREATE:
+    return {
+      ...state,
+      items: [...state.items, action.comment]
+    }
     default:
       return state;
   }

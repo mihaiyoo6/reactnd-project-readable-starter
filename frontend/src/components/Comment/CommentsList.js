@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { fetchComments, commentVote } from '../../actions/comments';
+import { 
+  fetchComments,
+  commentVote,
+  commentCreate } from '../../actions/comments';
 import Comment from './Comment';
-
+import CommentForm from './CommentForm';
 class CommentsList extends Component {
   componentDidMount() {
     this.props.getComments(this.props.postId);
@@ -25,6 +28,7 @@ class CommentsList extends Component {
         {comments.map(comment =>
           <Comment key={comment.id} {...comment} commentVote={commentVote} />
         )}
+        {!error && !loading && <CommentForm postId={this.props.postId} create={this.props.commentCreate} />}
       </div>
     );
   }
@@ -44,7 +48,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getComments: fetchComments,
-      commentVote
+      commentVote,
+      commentCreate
     },
     dispatch
   );
