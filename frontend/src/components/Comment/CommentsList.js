@@ -4,7 +4,8 @@ import { bindActionCreators } from "redux";
 import { 
   fetchComments,
   commentVote,
-  commentCreate } from '../../actions/comments';
+  commentCreate,
+  commentDelete } from '../../actions/comments';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
 class CommentsList extends Component {
@@ -25,8 +26,8 @@ class CommentsList extends Component {
     return (
       <div>
         <h1>Comments</h1>
-        {comments.map(comment =>
-          <Comment key={comment.id} {...comment} commentVote={commentVote} />
+        {comments.filter(i=>!i.deleted).map(comment =>
+          <Comment key={comment.id} {...comment} commentVote={commentVote} commentDelete={this.props.commentDelete} />
         )}
         {!error && !loading && <CommentForm postId={this.props.postId} create={this.props.commentCreate} />}
       </div>
@@ -49,7 +50,8 @@ const mapDispatchToProps = dispatch =>
     {
       getComments: fetchComments,
       commentVote,
-      commentCreate
+      commentCreate,
+      commentDelete
     },
     dispatch
   );

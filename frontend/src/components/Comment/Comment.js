@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-const Comment = ({ id, body, author, timestamp, voteScore, commentVote }) => {
+const Comment = ({ id, body, author, timestamp, voteScore, commentVote, commentDelete }) => {
 
   return (
     <div className="comment-wrap">
@@ -14,6 +14,7 @@ const Comment = ({ id, body, author, timestamp, voteScore, commentVote }) => {
         |
         <span onClick={() => commentVote(id, 'downVote')}> DownVote -</span>
       </div>
+      <span onClick={() => commentDelete(id)}>X Delete Comment</span>
     </div>
   )
 }

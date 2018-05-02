@@ -1,13 +1,15 @@
 import { 
   getComments,
   postCommentVote,
-  postCommentCreate } from '../utils/api';
+  postCommentCreate,
+  deleteCommentDelete } from '../utils/api';
 
 export const FETCH_COMMENTS_BEGIN = 'FETCH_COMMENTS_BEGIN';
 export const FETCH_COMMENTS_SUCCESS = 'FETCH_COMMENTS_SUCCESS';
 export const FETCH_COMMENTS_FAILURE = 'FETCH_COMMENTS_FAILURE';
 export const COMMENTS_VOTE = 'COMMENTS_VOTE';
 export const COMMENTS_CREATE = 'COMMENTS_CREATE';
+export const COMMENTS_DELETE = 'COMMENT_DELETE';
 
 export const fetchCommentsBegin = () => ({
   type: FETCH_COMMENTS_BEGIN
@@ -53,5 +55,17 @@ export const commentCreate = data => {
   return dispatch =>{
     return postCommentCreate(data)
     .then(comment=> dispatch(commentCreateSuccessful(comment)));
+  }
+}
+
+export const commentDeleteSuccessful = comment => ({
+  type: COMMENTS_DELETE,
+  comment
+});
+
+export function commentDelete(id) {
+  return dispatch => {
+    return deleteCommentDelete(id)
+      .then(comment => dispatch(commentDeleteSuccessful(comment)))
   }
 }

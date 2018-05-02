@@ -5,7 +5,7 @@ if (!token) {
   token = localStorage.token = Math.random().toString(36).substr(-8);
 }
 
-const checkStatus = (response) => {
+const proccessResponse = (response) => {
   if (response.status >= 200 && response.status < 300) {
     return response.ok ? response.json() : [];
   } else {
@@ -23,7 +23,7 @@ const headers = {
 
 export const getCategories = () =>
   fetch(`${api}/categories`, { headers })
-    .then(checkStatus)
+    .then(proccessResponse)
 
 export const getPosts = (category = '') => {
   const url = category === '' ?
@@ -31,7 +31,7 @@ export const getPosts = (category = '') => {
     `${api}/${category}/posts`;
 
   return fetch(url, { headers })
-    .then(checkStatus)
+    .then(proccessResponse)
 }
 
 export const getPost = (postId = null) => {
@@ -40,7 +40,7 @@ export const getPost = (postId = null) => {
   }
   const url = `${api}/posts/${postId}`;
   return fetch(url, { headers })
-    .then(checkStatus)
+    .then(proccessResponse)
 }
 
 export const postPostVote = (postId, option) => {
@@ -50,7 +50,7 @@ export const postPostVote = (postId, option) => {
     headers,
     body: JSON.stringify({ option })
   })
-    .then(checkStatus)
+    .then(proccessResponse)
 }
 
 export const postPostCreate = data => {
@@ -60,7 +60,7 @@ export const postPostCreate = data => {
     headers,
     body: JSON.stringify(data)
   })
-    .then(checkStatus);
+    .then(proccessResponse);
 }
 export const deletePostDelete = id => {
   const url = `${api}/posts/${id}`;
@@ -68,13 +68,13 @@ export const deletePostDelete = id => {
     method: 'DELETE',
     headers
   })
-    .then(checkStatus)
+    .then(proccessResponse)
 }
 
 export const getComments = (postId = '') => {
   const url = `${api}/posts/${postId}/comments`;
   return fetch(url, { headers })
-    .then(checkStatus)
+    .then(proccessResponse)
 }
 
 export const postCommentVote = (commentId, option) => {
@@ -84,7 +84,7 @@ export const postCommentVote = (commentId, option) => {
     headers,
     body: JSON.stringify({ option })
   })
-    .then(checkStatus)
+    .then(proccessResponse)
 }
 
 export const postCommentCreate = data => {
@@ -94,5 +94,14 @@ export const postCommentCreate = data => {
     headers,
     body: JSON.stringify(data)
   })
-    .then(checkStatus);
+    .then(proccessResponse);
+}
+
+export const deleteCommentDelete = id => {
+  const url =`${api}/comments/${id}`;
+  return fetch(url,{
+    method: 'DELETE',
+    headers
+  })
+  .then(proccessResponse)
 }
