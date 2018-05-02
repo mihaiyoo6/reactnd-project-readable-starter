@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
-const Post = ({ id, category, title, body, author, timestamp, voteScore, commentCount, postVote }) => {
+const Post = ({ id, category, title, body, author, timestamp, voteScore, commentCount, postVote, postDelete }) => {
   return (
     <div className="post-wrap">
       <Link to={`/${category}/${id}`} key={id}>
@@ -18,6 +18,9 @@ const Post = ({ id, category, title, body, author, timestamp, voteScore, comment
         <span onClick={() => postVote(id, 'downVote')}> DownVote -</span>
       </div>
       <div> Comments: {commentCount}</div>
+      <div>
+        <span onClick={() => postDelete(id)}>X Delete Post</span>
+      </div>
     </div>
   )
 }

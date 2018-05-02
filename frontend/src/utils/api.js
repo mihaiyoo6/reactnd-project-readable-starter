@@ -7,7 +7,7 @@ if (!token) {
 
 const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response.ok ? response.json() : [];
   } else {
     let error = new Error(response.statusText);
     error.response = response;
@@ -24,7 +24,6 @@ const headers = {
 export const getCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(checkStatus)
-    .then(r => r.ok ? r.json() : [])
 
 export const getPosts = (category = '') => {
   const url = category === '' ?
@@ -33,7 +32,6 @@ export const getPosts = (category = '') => {
 
   return fetch(url, { headers })
     .then(checkStatus)
-    .then(r => r.ok ? r.json() : [])
 }
 
 export const getPost = (postId = null) => {
@@ -43,7 +41,6 @@ export const getPost = (postId = null) => {
   const url = `${api}/posts/${postId}`;
   return fetch(url, { headers })
     .then(checkStatus)
-    .then(r => r.ok ? r.json() : [])
 }
 
 export const postPostVote = (postId, option) => {
@@ -54,7 +51,6 @@ export const postPostVote = (postId, option) => {
     body: JSON.stringify({ option })
   })
     .then(checkStatus)
-    .then(r => r.ok ? r.json() : [])
 }
 
 export const postPostCreate = data => {
@@ -64,15 +60,21 @@ export const postPostCreate = data => {
     headers,
     body: JSON.stringify(data)
   })
+    .then(checkStatus);
+}
+export const deletePostDelete = id => {
+  const url = `${api}/posts/${id}`;
+  return fetch(url, {
+    method: 'DELETE',
+    headers
+  })
     .then(checkStatus)
-    .then(r => r.ok ? r.json() : []);
 }
 
 export const getComments = (postId = '') => {
   const url = `${api}/posts/${postId}/comments`;
   return fetch(url, { headers })
     .then(checkStatus)
-    .then(r => r.ok ? r.json() : [])
 }
 
 export const postCommentVote = (commentId, option) => {
@@ -83,7 +85,6 @@ export const postCommentVote = (commentId, option) => {
     body: JSON.stringify({ option })
   })
     .then(checkStatus)
-    .then(r => r.ok ? r.json() : [])
 }
 
 export const postCommentCreate = data => {
@@ -93,6 +94,5 @@ export const postCommentCreate = data => {
     headers,
     body: JSON.stringify(data)
   })
-    .then(checkStatus)
-    .then(r => r.ok ? r.json() : []);
+    .then(checkStatus);
 }

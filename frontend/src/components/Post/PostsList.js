@@ -5,7 +5,8 @@ import {
   fetchPosts,
   postVote,
   postsSort,
-  postCreate
+  postCreate,
+  postDelete
 } from '../../actions/posts';
 import Post from './Post';
 import PostForm from './PostForm';
@@ -52,8 +53,8 @@ class PostList extends Component {
           |
           <span onClick={() => this.changeSort('voteScore')}> votes: {this.state.sort.by === 'voteScore' && this.state.sort.order} </span>
         </div>
-        {posts.map(post =>
-          <Post key={post.id} {...post} postVote={this.props.postVote} />
+        {posts.filter(item => !item.deleted).map(post =>
+          <Post key={post.id} {...post} postVote={this.props.postVote} postDelete={this.props.postDelete} />
         )}
         {!error && !loading && <PostForm categories={this.props.categories} create={this.props.postCreate} />}
       </div>
@@ -75,7 +76,8 @@ const mapDispatchToProps = dispatch =>
     getPosts: fetchPosts,
     postVote,
     postsSort,
-    postCreate
+    postCreate,
+    postDelete
   },
     dispatch
   );

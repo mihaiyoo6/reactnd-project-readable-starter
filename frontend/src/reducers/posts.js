@@ -7,7 +7,8 @@ import {
   FETCH_POSTS_FAILURE_SINGLE,
   POSTS_VOTE,
   POSTS_SORT,
-  POSTS_CREATE
+  POSTS_CREATE,
+  POSTS_DELETE
 } from '../actions/posts';
 
 const initialState = {
@@ -74,6 +75,13 @@ export default function postsReducer(state = initialState, action) {
       return {
         ...state,
         items: [...state.items, action.post]
+      }
+    }
+    case POSTS_DELETE: {
+      return {
+        ...state,
+        items: state.items.map(item => item.id === action.post.id ? action.post : item),
+        item: state.item ? (state.item.id === action.post.id ? action.post : state.item) : {}
       }
     }
 

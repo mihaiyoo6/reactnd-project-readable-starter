@@ -2,7 +2,8 @@ import {
   getPosts,
   getPost,
   postPostVote,
-  postPostCreate
+  postPostCreate,
+  deletePostDelete
 } from '../utils/api';
 
 export const FETCH_POSTS_BEGIN = 'FETCH_POSTS_BEGIN';
@@ -14,6 +15,7 @@ export const FETCH_POSTS_FAILURE_SINGLE = 'FETCH_POSTS_FAILURE_SINGLE';
 export const POSTS_VOTE = 'POSTS_VOTE';
 export const POSTS_SORT = 'POSTS_SORT';
 export const POSTS_CREATE = 'POSTS_CREATE';
+export const POSTS_DELETE = 'POSTS_DELETE';
 
 export const fetchPostsBegin = () => ({
   type: FETCH_POSTS_BEGIN
@@ -94,4 +96,16 @@ export function postCreate(data) {
     return postPostCreate({ ...data })
       .then(post => dispatch(postCreateSuccessful(post)));
   };
+}
+
+export const postDeleteSuccessful = post => ({
+  type: POSTS_DELETE,
+  post
+});
+
+export function postDelete(id) {
+  return dispatch => {
+    return deletePostDelete(id)
+      .then(post => dispatch(postDeleteSuccessful(post)))
+  }
 }
