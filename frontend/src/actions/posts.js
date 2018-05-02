@@ -1,7 +1,8 @@
 import {
   getPosts,
   getPost,
-  postPostVote
+  postPostVote,
+  postPostCreate
 } from '../utils/api';
 
 export const FETCH_POSTS_BEGIN = 'FETCH_POSTS_BEGIN';
@@ -12,6 +13,7 @@ export const FETCH_POSTS_SUCCESS_SINGLE = 'FETCH_POSTS_SUCCESS_SINGLE';
 export const FETCH_POSTS_FAILURE_SINGLE = 'FETCH_POSTS_FAILURE_SINGLE';
 export const POSTS_VOTE = 'POSTS_VOTE';
 export const POSTS_SORT = 'POSTS_SORT';
+export const POSTS_CREATE = 'POSTS_CREATE';
 
 export const fetchPostsBegin = () => ({
   type: FETCH_POSTS_BEGIN
@@ -80,4 +82,16 @@ export function postsSort(list, by, order) {
     }
     return list.sort(compare);
   }
+}
+
+export const postCreateSuccessful = post => ({
+  type: POSTS_CREATE,
+  post
+});
+
+export function postCreate(data) {
+  return dispatch => {
+    return postPostCreate({ ...data })
+      .then(post => dispatch(postCreateSuccessful(post)));
+  };
 }

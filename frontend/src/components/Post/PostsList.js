@@ -4,9 +4,11 @@ import { bindActionCreators } from "redux";
 import {
   fetchPosts,
   postVote,
-  postsSort
+  postsSort,
+  postCreate
 } from '../../actions/posts';
 import Post from './Post';
+import PostForm from './PostForm';
 
 class PostList extends Component {
   state = {
@@ -53,6 +55,7 @@ class PostList extends Component {
         {posts.map(post =>
           <Post key={post.id} {...post} postVote={this.props.postVote} />
         )}
+        {!error && !loading && <PostForm categories={this.props.categories} create={this.props.postCreate} />}
       </div>
     );
   }
@@ -62,7 +65,8 @@ const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
   posts: state.posts.items,
   loading: state.posts.loading,
-  error: state.posts.error
+  error: state.posts.error,
+  categories: state.categories.items
 });
 
 
@@ -70,7 +74,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({
     getPosts: fetchPosts,
     postVote,
-    postsSort
+    postsSort,
+    postCreate
   },
     dispatch
   );

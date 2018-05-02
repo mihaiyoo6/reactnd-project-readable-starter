@@ -6,7 +6,8 @@ import {
   FETCH_POSTS_SUCCESS_SINGLE,
   FETCH_POSTS_FAILURE_SINGLE,
   POSTS_VOTE,
-  POSTS_SORT
+  POSTS_SORT,
+  POSTS_CREATE
 } from '../actions/posts';
 
 const initialState = {
@@ -66,6 +67,12 @@ export default function postsReducer(state = initialState, action) {
       return {
         ...state,
         items: state.items
+      }
+    }
+    case POSTS_CREATE: {
+      return {
+        ...state,
+        items: [...state.items, action.post]
       }
     }
 

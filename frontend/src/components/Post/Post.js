@@ -10,7 +10,7 @@ const Post = ({ id, category, title, body, author, timestamp, voteScore, comment
       </Link>
       <p>{body}</p>
       <div>{author}</div>
-      <div>{moment(timestamp).startOf('hour').fromNow()}</div>
+      <div>{moment(timestamp).startOf('seconds').fromNow()}</div>
       <div>Votes: {voteScore}</div>
       <div>
         <span onClick={() => postVote(id, 'upVote')}> UpVote + </span>
