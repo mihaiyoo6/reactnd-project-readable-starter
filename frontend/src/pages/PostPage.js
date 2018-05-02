@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { fetchPostSingle } from '../actions/posts';
+import {
+  fetchPostSingle,
+  postVote
+} from '../actions/posts';
 import CommentsList from '../components/Comment/CommentsList';
 import Post from '../components/Post/Post';
 
@@ -25,7 +28,7 @@ class PostPage extends Component {
           POST
           {loading
             ? <div>Loading...</div>
-            : <Post {...post} />}
+            : <Post {...post} postVote={this.props.postVote} />}
         </div>
         <div className="comments">
           <CommentsList postId={postId} />
@@ -45,7 +48,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    getPost: fetchPostSingle
+    getPost: fetchPostSingle,
+    postVote
+
   },
     dispatch
   );

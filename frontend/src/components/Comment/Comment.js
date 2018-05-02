@@ -7,7 +7,7 @@ const Comment = ({ id, body, author, timestamp, voteScore, commentVote }) => {
     <div className="comment-wrap">
       <p>{body}</p>
       <div>{author}</div>
-      <div>{moment(timestamp).startOf('hour').fromNow()}</div>
+      <div>{moment(timestamp).startOf('seconds').fromNow()}</div>
       <div>Votes: {voteScore}</div>
       <div>
         <span onClick={() => commentVote(id, 'upVote')}> UpVote + </span>

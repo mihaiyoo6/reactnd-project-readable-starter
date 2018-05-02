@@ -61,7 +61,8 @@ export default function postsReducer(state = initialState, action) {
     case POSTS_VOTE:
       return {
         ...state,
-        items: state.items.map(item => item.id === action.post.id ? action.post : item)
+        items: state.items.map(item => item.id === action.post.id ? action.post : item),
+        item: action.post
       }
     case POSTS_SORT: {
       return {
