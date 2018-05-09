@@ -4,7 +4,8 @@ import {
   FETCH_COMMENTS_FAILURE,
   COMMENTS_VOTE,
   COMMENTS_CREATE,
-  COMMENTS_DELETE
+  COMMENTS_DELETE,
+  COMMENTS_EDIT
 } from '../actions/comments';
 
 const initialState = {
@@ -37,6 +38,7 @@ export default function commentsReducer(state = initialState, action) {
         error: action.payload.error,
         items: []
       }
+
     case COMMENTS_VOTE:
       return {
         ...state,
@@ -44,15 +46,22 @@ export default function commentsReducer(state = initialState, action) {
       };
 
     case COMMENTS_CREATE:
-    return {
-      ...state,
-      items: [...state.items, action.comment]
-    }
-    case COMMENTS_DELETE: 
-    return {
-      ...state,
-      items: state.items.map(item => item.id === action.comment.id ? action.comment : item)
-    }
+      return {
+        ...state,
+        items: [...state.items, action.comment]
+      }
+
+    case COMMENTS_DELETE:
+      return {
+        ...state,
+        items: state.items.map(item => item.id === action.comment.id ? action.comment : item)
+      }
+
+    case COMMENTS_EDIT:
+      return {
+        ...state,
+        items: state.items.map(item => item.id === action.comment.id ? action.comment : item)
+      }
     default:
       return state;
   }

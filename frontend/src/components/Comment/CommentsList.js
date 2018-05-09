@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { 
+import {
   fetchComments,
   commentVote,
   commentCreate,
-  commentDelete } from '../../actions/comments';
+  commentDelete,
+  commentEdit
+} from '../../actions/comments';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
 class CommentsList extends Component {
@@ -13,7 +15,8 @@ class CommentsList extends Component {
     this.props.getComments(this.props.postId);
   }
   render() {
-    const { error, loading, comments, commentVote } = this.props;
+    const { error, loading, comments,
+      commentVote, commentCreate, commentDelete, commentEdit } = this.props;
 
     if (error) {
       return <div>Error! {error.message}</div>;
@@ -26,10 +29,10 @@ class CommentsList extends Component {
     return (
       <div>
         <h1>Comments</h1>
-        {comments.filter(i=>!i.deleted).map(comment =>
-          <Comment key={comment.id} {...comment} commentVote={commentVote} commentDelete={this.props.commentDelete} />
+        {comments.filter(i => !i.deleted).map(comment =>
+          <Comment key={comment.id} {...comment} commentVote={commentVote} commentDelete={commentDelete} commentEdit={commentEdit} />
         )}
-        {!error && !loading && <CommentForm postId={this.props.postId} create={this.props.commentCreate} />}
+        {!error && !loading && <CommentForm postId={this.props.postId} onSubmit={commentCreate} />}
       </div>
     );
   }
@@ -51,7 +54,8 @@ const mapDispatchToProps = dispatch =>
       getComments: fetchComments,
       commentVote,
       commentCreate,
-      commentDelete
+      commentDelete,
+      commentEdit
     },
     dispatch
   );

@@ -98,10 +98,20 @@ export const postCommentCreate = data => {
 }
 
 export const deleteCommentDelete = id => {
-  const url =`${api}/comments/${id}`;
-  return fetch(url,{
+  const url = `${api}/comments/${id}`;
+  return fetch(url, {
     method: 'DELETE',
     headers
   })
-  .then(proccessResponse)
+    .then(proccessResponse);
+}
+
+export const putCommentEdit = ({ id, body, timestamp }) => {
+  const url = `${api}/comments/${id}`;
+  return fetch(url, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify({ body, timestamp })
+  })
+    .then(proccessResponse);
 }
