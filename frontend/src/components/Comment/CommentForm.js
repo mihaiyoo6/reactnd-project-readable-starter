@@ -4,7 +4,6 @@ import uuid from 'uuid/v1';
 class CommentForm extends Component {
 
   state = {
-    postId: this.props.postId,
     id: this.props.comment ? this.props.comment.id : uuid(),
     body: this.props.comment ? this.props.comment.body : '',
     author: this.props.comment ? this.props.comment.author : '',
@@ -12,15 +11,13 @@ class CommentForm extends Component {
   onchange = field => e => this.setState({ [field]: e.target.value });
   formSubmit = e => {
     e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
 
     this.props.onSubmit({
       id: this.state.id,
       timestamp: Date.now(),
-      parentId: this.state.postId,
-      author: formData.get('author'),
-      body: formData.get('body')
+      parentId: this.props.postId,
+      author: this.state.author,
+      body: this.state.body
     });
     this.setState({ id: '', author: '', body: '' })
   }

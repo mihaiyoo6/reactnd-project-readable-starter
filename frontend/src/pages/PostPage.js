@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import {
   fetchPostSingle,
-  postVote
+  postVote,
+  postDelete,
+  postEdit
 } from '../actions/posts';
 import CommentsList from '../components/Comment/CommentsList';
 import Post from '../components/Post/Post';
@@ -21,6 +23,9 @@ class PostPage extends Component {
     if (error) {
       return <div>Error! {error.message}</div>;
     }
+    if (!post) {
+      return <div>Post was removed</div>
+    }
 
     return (
       <div>
@@ -28,7 +33,7 @@ class PostPage extends Component {
           POST
           {loading
             ? <div>Loading...</div>
-            : <Post {...post} postVote={this.props.postVote} />}
+            : <Post {...post} postVote={this.props.postVote} categories={this.props.categories} postDelete={this.props.postDelete} postEdit={this.props.postEdit} />}
         </div>
         <div className="comments">
           <CommentsList postId={postId} />
@@ -40,6 +45,7 @@ class PostPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    categories: state.categories.items,
     post: state.posts.item,
     loading: state.posts.loading,
     error: state.posts.error
@@ -49,7 +55,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
     getPost: fetchPostSingle,
-    postVote
+    postVote,
+    postDelete,
+    postEdit
 
   },
     dispatch

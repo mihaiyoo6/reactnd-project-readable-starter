@@ -12,9 +12,7 @@ class Comment extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.body !== this.props.body && this.state.isEditing) {
-      this.setState({ isEditing: false });
-    }
+    this.setState({ isEditing: false });
   }
 
   render() {
@@ -29,12 +27,12 @@ class Comment extends Component {
         <div>{moment(timestamp).startOf('seconds').fromNow()}</div>
         <div>Votes: {voteScore}</div>
         <div>
-          <span onClick={() => commentVote(id, 'upVote')} role='img'> &#128077; </span>
+          <span onClick={() => commentVote(id, 'upVote')} role='img' aria-label='vote up'> &#128077; </span>
           |
-          <span onClick={() => commentVote(id, 'downVote')} role='img'> 	&#128078; </span>
+          <span onClick={() => commentVote(id, 'downVote')} role='img' aria-label='vote down'> &#128078; </span>
         </div>
         <span onClick={() => commentDelete(id)}>X Delete Comment</span>
-        <span onClick={() => this.edit()}> &#9998;  Edit Comment</span>
+        <span onClick={() => this.edit()} role='img' aria-label='edit comment'> &#9998;  Edit Comment</span>
       </div>
     }
 

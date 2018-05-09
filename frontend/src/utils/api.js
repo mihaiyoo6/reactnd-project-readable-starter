@@ -96,6 +96,15 @@ export const postCommentCreate = data => {
   })
     .then(proccessResponse);
 }
+export const putPostEdit = ({ id, body, title }) => {
+  const url = `${api}/posts/${id}`;
+  return fetch(url, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify({ body, title })
+  })
+    .then(proccessResponse);
+}
 
 export const deleteCommentDelete = id => {
   const url = `${api}/comments/${id}`;

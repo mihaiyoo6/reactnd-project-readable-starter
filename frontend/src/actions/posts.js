@@ -3,7 +3,8 @@ import {
   getPost,
   postPostVote,
   postPostCreate,
-  deletePostDelete
+  deletePostDelete,
+  putPostEdit
 } from '../utils/api';
 
 export const FETCH_POSTS_BEGIN = 'FETCH_POSTS_BEGIN';
@@ -16,6 +17,7 @@ export const POSTS_VOTE = 'POSTS_VOTE';
 export const POSTS_SORT = 'POSTS_SORT';
 export const POSTS_CREATE = 'POSTS_CREATE';
 export const POSTS_DELETE = 'POSTS_DELETE';
+export const POSTS_EDIT = 'POSTS_EDIT';
 
 export const fetchPostsBegin = () => ({
   type: FETCH_POSTS_BEGIN
@@ -107,5 +109,17 @@ export function postDelete(id) {
   return dispatch => {
     return deletePostDelete(id)
       .then(post => dispatch(postDeleteSuccessful(post)))
+  }
+}
+
+export const postEditSuccessful = post => ({
+  type: POSTS_DELETE,
+  post
+});
+
+export function postEdit(data) {
+  return dispatch => {
+    return putPostEdit(data)
+      .then(post => dispatch(postEditSuccessful(post)))
   }
 }

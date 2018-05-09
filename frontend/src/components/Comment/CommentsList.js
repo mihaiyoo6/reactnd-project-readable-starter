@@ -32,7 +32,10 @@ class CommentsList extends Component {
         {comments.filter(i => !i.deleted).map(comment =>
           <Comment key={comment.id} {...comment} commentVote={commentVote} commentDelete={commentDelete} commentEdit={commentEdit} />
         )}
-        {!error && !loading && <CommentForm postId={this.props.postId} onSubmit={commentCreate} />}
+        {!error && !loading && <div>
+          <h4>Add new Comment</h4>
+          <CommentForm postId={this.props.postId} onSubmit={commentCreate} />
+        </div>}
       </div>
     );
   }

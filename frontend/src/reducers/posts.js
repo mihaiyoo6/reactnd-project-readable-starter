@@ -8,7 +8,8 @@ import {
   POSTS_VOTE,
   POSTS_SORT,
   POSTS_CREATE,
-  POSTS_DELETE
+  POSTS_DELETE,
+  POSTS_EDIT
 } from '../actions/posts';
 
 const initialState = {
@@ -78,6 +79,13 @@ export default function postsReducer(state = initialState, action) {
       }
     }
     case POSTS_DELETE: {
+      return {
+        ...state,
+        items: state.items.map(item => item.id === action.post.id ? action.post : item),
+        item: state.item ? (state.item.id === action.post.id ? action.post : state.item) : {}
+      }
+    }
+    case POSTS_EDIT: {
       return {
         ...state,
         items: state.items.map(item => item.id === action.post.id ? action.post : item),
