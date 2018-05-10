@@ -6,13 +6,15 @@ import {
   putCommentEdit
 } from '../utils/api';
 
-export const FETCH_COMMENTS_BEGIN = 'FETCH_COMMENTS_BEGIN';
-export const FETCH_COMMENTS_SUCCESS = 'FETCH_COMMENTS_SUCCESS';
-export const FETCH_COMMENTS_FAILURE = 'FETCH_COMMENTS_FAILURE';
-export const COMMENTS_VOTE = 'COMMENTS_VOTE';
-export const COMMENTS_CREATE = 'COMMENTS_CREATE';
-export const COMMENTS_DELETE = 'COMMENT_DELETE';
-export const COMMENTS_EDIT = 'COMMENT_EDIT';
+import {
+  FETCH_COMMENTS_BEGIN,
+  FETCH_COMMENTS_SUCCESS,
+  FETCH_COMMENTS_FAILURE,
+  COMMENTS_VOTE,
+  COMMENTS_CREATE,
+  COMMENTS_DELETE,
+  COMMENTS_EDIT
+} from './types';
 
 export const fetchCommentsBegin = () => ({
   type: FETCH_COMMENTS_BEGIN

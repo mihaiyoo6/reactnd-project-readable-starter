@@ -4,17 +4,20 @@ import uuid from 'uuid/v1';
 class PostForm extends Component {
   state = {
     id: this.props.post ? this.props.post.id : uuid(),
-    category: this.props.post ? this.props.post.category : '',
+    category: this.props.post ? this.props.post.category : (this.props.categories[0] ? this.props.categories[0].path : ''),
     title: this.props.post ? this.props.post.title : '',
     body: this.props.post ? this.props.post.body : '',
     author: this.props.post ? this.props.post.author : ''
   }
+
   onchange = field => e => this.setState({ [field]: e.target.value });
+
   formSubmit = e => {
     e.preventDefault();
     this.props.onSubmit({
       id: this.state.id,
       timestamp: Date.now(),
+      category: this.state.category,
       author: this.state.author,
       title: this.state.title,
       body: this.state.body

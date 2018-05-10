@@ -6,7 +6,7 @@ import {
   COMMENTS_CREATE,
   COMMENTS_DELETE,
   COMMENTS_EDIT
-} from '../actions/comments';
+} from '../actions/types';
 
 const initialState = {
   items: [],

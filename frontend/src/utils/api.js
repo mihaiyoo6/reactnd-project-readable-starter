@@ -5,7 +5,7 @@ if (!token) {
   token = localStorage.token = Math.random().toString(36).substr(-8);
 }
 
-const proccessResponse = (response) => {
+const processResponse = (response) => {
   if (response.status >= 200 && response.status < 300) {
     return response.ok ? response.json() : [];
   } else {
@@ -23,7 +23,7 @@ const headers = {
 
 export const getCategories = () =>
   fetch(`${api}/categories`, { headers })
-    .then(proccessResponse)
+    .then(processResponse)
 
 export const getPosts = (category = '') => {
   const url = category === '' ?
@@ -31,7 +31,7 @@ export const getPosts = (category = '') => {
     `${api}/${category}/posts`;
 
   return fetch(url, { headers })
-    .then(proccessResponse)
+    .then(processResponse)
 }
 
 export const getPost = (postId = null) => {
@@ -40,7 +40,7 @@ export const getPost = (postId = null) => {
   }
   const url = `${api}/posts/${postId}`;
   return fetch(url, { headers })
-    .then(proccessResponse)
+    .then(processResponse)
 }
 
 export const postPostVote = (postId, option) => {
@@ -50,7 +50,7 @@ export const postPostVote = (postId, option) => {
     headers,
     body: JSON.stringify({ option })
   })
-    .then(proccessResponse)
+    .then(processResponse)
 }
 
 export const postPostCreate = data => {
@@ -60,7 +60,7 @@ export const postPostCreate = data => {
     headers,
     body: JSON.stringify(data)
   })
-    .then(proccessResponse);
+    .then(processResponse);
 }
 export const deletePostDelete = id => {
   const url = `${api}/posts/${id}`;
@@ -68,13 +68,13 @@ export const deletePostDelete = id => {
     method: 'DELETE',
     headers
   })
-    .then(proccessResponse)
+    .then(processResponse)
 }
 
 export const getComments = (postId = '') => {
   const url = `${api}/posts/${postId}/comments`;
   return fetch(url, { headers })
-    .then(proccessResponse)
+    .then(processResponse)
 }
 
 export const postCommentVote = (commentId, option) => {
@@ -84,7 +84,7 @@ export const postCommentVote = (commentId, option) => {
     headers,
     body: JSON.stringify({ option })
   })
-    .then(proccessResponse)
+    .then(processResponse)
 }
 
 export const postCommentCreate = data => {
@@ -94,7 +94,7 @@ export const postCommentCreate = data => {
     headers,
     body: JSON.stringify(data)
   })
-    .then(proccessResponse);
+    .then(processResponse);
 }
 export const putPostEdit = ({ id, body, title }) => {
   const url = `${api}/posts/${id}`;
@@ -103,7 +103,7 @@ export const putPostEdit = ({ id, body, title }) => {
     headers,
     body: JSON.stringify({ body, title })
   })
-    .then(proccessResponse);
+    .then(processResponse);
 }
 
 export const deleteCommentDelete = id => {
@@ -112,7 +112,7 @@ export const deleteCommentDelete = id => {
     method: 'DELETE',
     headers
   })
-    .then(proccessResponse);
+    .then(processResponse);
 }
 
 export const putCommentEdit = ({ id, body, timestamp }) => {
@@ -122,5 +122,5 @@ export const putCommentEdit = ({ id, body, timestamp }) => {
     headers,
     body: JSON.stringify({ body, timestamp })
   })
-    .then(proccessResponse);
+    .then(processResponse);
 }

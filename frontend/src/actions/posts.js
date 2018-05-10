@@ -7,17 +7,18 @@ import {
   putPostEdit
 } from '../utils/api';
 
-export const FETCH_POSTS_BEGIN = 'FETCH_POSTS_BEGIN';
-export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
-export const FETCH_POSTS_FAILURE = 'FETCH_POSTS_FAILURE';
-export const FETCH_POSTS_BEGIN_SINGLE = 'FETCH_POSTS_BEGIN_SINGLE';
-export const FETCH_POSTS_SUCCESS_SINGLE = 'FETCH_POSTS_SUCCESS_SINGLE';
-export const FETCH_POSTS_FAILURE_SINGLE = 'FETCH_POSTS_FAILURE_SINGLE';
-export const POSTS_VOTE = 'POSTS_VOTE';
-export const POSTS_SORT = 'POSTS_SORT';
-export const POSTS_CREATE = 'POSTS_CREATE';
-export const POSTS_DELETE = 'POSTS_DELETE';
-export const POSTS_EDIT = 'POSTS_EDIT';
+import {
+  FETCH_POSTS_BEGIN,
+  FETCH_POSTS_SUCCESS,
+  FETCH_POSTS_FAILURE,
+  FETCH_POSTS_BEGIN_SINGLE,
+  FETCH_POSTS_SUCCESS_SINGLE,
+  FETCH_POSTS_FAILURE_SINGLE,
+  POSTS_VOTE,
+  POSTS_CREATE,
+  POSTS_DELETE,
+  POSTS_EDIT
+} from './types';
 
 export const fetchPostsBegin = () => ({
   type: FETCH_POSTS_BEGIN
@@ -113,7 +114,7 @@ export function postDelete(id) {
 }
 
 export const postEditSuccessful = post => ({
-  type: POSTS_DELETE,
+  type: POSTS_EDIT,
   post
 });
 

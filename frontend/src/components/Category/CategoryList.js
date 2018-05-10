@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from "redux";
+import { Link } from 'react-router-dom';
 import { fetchCategories } from '../../actions/categories';
 import Category from './Category';
 
@@ -22,6 +22,7 @@ class CategoryList extends Component {
     return (
       <div>
         <h1>Categories</h1>
+        <Link to='/'>All Categories</Link>
         {categories.map(category =>
           <Category key={category.path} {...category} />
         )}
@@ -30,25 +31,17 @@ class CategoryList extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ categories }) => {
   return {
-    categories: state.categories.items,
-    loading: state.categories.loading,
-    error: state.categories.error
+    categories: categories.items,
+    loading: categories.loading,
+    error: categories.error
   }
 };
 
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      getCategories: fetchCategories
-    },
-    dispatch
-  );
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {
+    getCategories: fetchCategories
+  }
 )(CategoryList);
-

@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from "redux";
-import {
-  fetchPosts,
-  postVote,
-  postsSort,
-  postCreate,
-  postDelete,
-  postEdit
-} from '../../actions/posts';
+import * as actions from '../../actions/posts';
 import Post from './Post';
 import PostForm from './PostForm';
 
@@ -20,12 +12,12 @@ class PostList extends Component {
     }
   }
   componentDidMount() {
-    this.props.getPosts(this.props.category);
+    this.props.fetchPosts(this.props.category);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.category !== this.props.category) {
-      this.props.getPosts(nextProps.category);
+      this.props.fetchPosts(nextProps.category);
     }
   }
   changeSort(by) {
@@ -75,21 +67,7 @@ const mapStateToProps = (state, ownProps) => ({
   categories: state.categories.items
 });
 
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({
-    getPosts: fetchPosts,
-    postVote,
-    postsSort,
-    postCreate,
-    postDelete,
-    postEdit
-  },
-    dispatch
-  );
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  actions
 )(PostList);
-

@@ -96,3 +96,7 @@ node server.js
 - [x] Create/Edit View
     - [x] should have a form to create new post or edit existing posts
     - [x] when editing, existing data should be populated in the form
+
+## License
+
+MIT

@@ -24,3 +24,7 @@ Information about the API server and how to use it can be found in its [README f
 ## Frontend App
 
 Information about the Frontend and how to use it can be found in its [README file](frontend/README.md).
+
+## License
+
+MIT

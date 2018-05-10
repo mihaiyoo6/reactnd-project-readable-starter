@@ -36,9 +36,9 @@ class Post extends Component {
         <div>{moment(timestamp).startOf('seconds').fromNow()}</div>
         <div>Votes: {voteScore}</div>
         <div>
-          <span onClick={() => postVote(id, 'upVote')}> UpVote + </span>
+          <span onClick={() => postVote(id, 'upVote')} role='img' aria-label='vote up'> &#128077; </span>
           |
-          <span onClick={() => postVote(id, 'downVote')}> DownVote -</span>
+          <span onClick={() => postVote(id, 'downVote')} role='img' aria-label='vote down'> &#128078; </span>
         </div>
         <div> Comments: {commentCount}</div>
         <div>
