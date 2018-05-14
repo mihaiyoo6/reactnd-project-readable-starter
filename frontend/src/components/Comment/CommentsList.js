@@ -29,7 +29,7 @@ class CommentsList extends Component {
     return (
       <div>
         <h1>Comments</h1>
-        {comments.filter(i => !i.deleted).map(comment =>
+        {comments.filter(i => !i.parentDeleted && !i.deleted).map(comment =>
           <Comment key={comment.id} {...comment} commentVote={commentVote} commentDelete={commentDelete} commentEdit={commentEdit} />
         )}
         {!error && !loading && <div>

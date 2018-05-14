@@ -12,10 +12,10 @@ class App extends Component {
     return (
       <div className='App'>
         <Switch>
-          <Route exact path="/404" component={NotFound} />
           <Route exact path='/' component={MainPage} />
           <Route exact path='/:category' component={CategoryPage} />
           <Route exact path='/:category/:postId' component={PostPage} />
+          <Route exact component={NotFound} />
         </Switch>
       </div>
     );

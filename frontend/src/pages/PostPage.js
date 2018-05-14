@@ -10,28 +10,24 @@ import {
 import CategoryList from '../components/Category/CategoryList';
 import CommentsList from '../components/Comment/CommentsList';
 import Post from '../components/Post/Post';
+import NotFound from './404';
 
 
 class PostPage extends Component {
   componentDidMount() {
     const { postId } = this.props.match.params;
-    this.props.fetchPostSingle(postId).catch(err => {
-      this.props.history.push('/404');
-    });
+    this.props.fetchPostSingle(postId);
   }
   render() {
     const { postId } = this.props.match.params;
     const { error, loading, post } = this.props;
 
     if (error) {
-      return <div>Error! {error.message}</div>;
+      return <div><NotFound /></div>;
     }
 
-    if (post && post.deleted) {
-      this.props.history.push('/');
-    }
-    if (!loading && !post) {
-      this.props.history.push('/404');
+    if ((post && post.deleted) || (!loading && !post)) {
+      return <div><NotFound /></div>
     }
 
     return (

@@ -41,6 +41,13 @@ export const getPost = (postId = null) => {
   const url = `${api}/posts/${postId}`;
   return fetch(url, { headers })
     .then(processResponse)
+    .then(post => {
+      if (Object.keys(post).length > 0) {
+        return post;
+      } else {
+        throw new Error({ statusText: 404 });
+      }
+    });
 }
 
 export const postPostVote = (postId, option) => {
